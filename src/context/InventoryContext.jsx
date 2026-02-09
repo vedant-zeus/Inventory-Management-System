@@ -1,7 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useRef } from "react";
 
 const InventoryContext = createContext();
-
 
 /* ---------------- INITIAL DATA ---------------- */
 const INITIAL_ITEMS = [
@@ -33,8 +32,10 @@ export function InventoryProvider({ children }) {
   const [alerts, setAlerts] = useState([]);
   const [popup, setPopup] = useState(null);
 
-  /* 🔥 THIS IS WHERE salesLog BELONGS */
+  /* 🔥 SALES + SIMULATION STATE */
   const [salesLog, setSalesLog] = useState([]);
+  const [simulationRunning, setSimulationRunning] = useState(false);
+  const simulationRef = useRef(null);
 
   /* ---------------- ALERT HELPERS ---------------- */
   const showPopup = (message, type = "warning") => {
@@ -43,25 +44,25 @@ export function InventoryProvider({ children }) {
   };
 
   const addAlert = (message) => {
-    setAlerts(prev => [{ id: Date.now(), message }, ...prev]);
+    setAlerts((prev) => [{ id: Date.now(), message }, ...prev]);
     showPopup(message);
   };
 
   /* ---------------- BUY ITEM ---------------- */
   const buyItem = (id, qty = 1) => {
-    setItems(prev =>
-      prev.map(item => {
+    setItems((prev) =>
+      prev.map((item) => {
         if (item.id !== id) return item;
 
         const newStock = item.stock - qty;
 
-        /* ✅ LOG SALE EVENT */
-        setSalesLog(prev => [
+        /* LOG SALE */
+        setSalesLog((prev) => [
           ...prev,
           {
             item: item.name,
             qty,
-            price: 40,               // simulated
+            price: 40,
             time: new Date(),
           },
         ]);
@@ -82,6 +83,27 @@ export function InventoryProvider({ children }) {
     );
   };
 
+  /* ---------------- REAL-TIME SIMULATION ---------------- */
+  const startSimulation = () => {
+    if (simulationRunning) return;
+
+    setSimulationRunning(true);
+
+    simulationRef.current = setInterval(() => {
+      const randomItem =
+        items[Math.floor(Math.random() * items.length)];
+
+      const qty = Math.ceil(Math.random() * 3);
+
+      buyItem(randomItem.id, qty);
+    }, 2000);
+  };
+
+  const stopSimulation = () => {
+    setSimulationRunning(false);
+    clearInterval(simulationRef.current);
+  };
+
   return (
     <InventoryContext.Provider
       value={{
@@ -90,7 +112,12 @@ export function InventoryProvider({ children }) {
         alerts,
         popup,
         setPopup,
-        salesLog,      // 👈 EXPOSED HERE
+        salesLog,
+
+        /* SIMULATION CONTROLS */
+        simulationRunning,
+        startSimulation,
+        stopSimulation,
       }}
     >
       {children}

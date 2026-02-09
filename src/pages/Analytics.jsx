@@ -1,5 +1,6 @@
 import { useInventory } from "../context/InventoryContext";
 import { motion } from "framer-motion";
+import SimulationControl from "../components/SimulationControl";
 
 import SalesChart from "../charts/SalesChart";
 import PredictionChart from "../charts/PredictionChart";
@@ -23,6 +24,9 @@ export default function Analytics() {
     <div>
       <h2 style={{ marginBottom: 24 }}>📊 Business Analytics</h2>
 
+      {/* ================= SIMULATION CONTROL ================= */}
+      <SimulationControl />
+
       {/* ================= KPIs ================= */}
       <div
         style={{
@@ -44,12 +48,49 @@ export default function Analytics() {
 
       {/* ================= SALES TREND ================= */}
       <Section title="📈 Live Sales Trend">
-      <SalesChart salesLog={salesLog} />
+        <SalesChart salesLog={salesLog} />
       </Section>
 
       {/* ================= DEMAND FORECAST ================= */}
       <Section title="🔮 Demand & Restock Prediction">
         <PredictionChart />
+      </Section>
+
+      {/* ================= LIVE SALES FEED ================= */}
+      <Section title="🕒 Live Sales Feed">
+        <div
+          style={{
+            maxHeight: 200,
+            overflowY: "auto",
+            border: "1px solid #E5E7EB",
+            borderRadius: 12,
+            padding: 12,
+            background: "#FFFFFF",
+          }}
+        >
+          {salesLog.length === 0 ? (
+            <p style={{ fontSize: 13, color: "#6B7280" }}>
+              No sales yet. Start simulation to see live activity.
+            </p>
+          ) : (
+            salesLog
+              .slice(-10)
+              .reverse()
+              .map((log, index) => (
+                <div
+                  key={index}
+                  style={{
+                    fontSize: 13,
+                    padding: "6px 0",
+                    borderBottom: "1px solid #F1F5F9",
+                  }}
+                >
+                  <strong>{log.item}</strong> × {log.qty} sold at{" "}
+                  {new Date(log.time).toLocaleTimeString()}
+                </div>
+              ))
+          )}
+        </div>
       </Section>
 
       {/* ================= OPERATIONAL INSIGHTS ================= */}
