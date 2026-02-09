@@ -22,18 +22,28 @@ export default function Analytics() {
 
   return (
     <div>
-      <h2 style={{ marginBottom: 24 }}>📊 Business Analytics</h2>
+      {/* HEADER */}
+      <h2
+        style={{
+          marginBottom: 20,
+          fontSize: "1.8rem",
+          fontWeight: 700,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        📊 Business Analytics
+      </h2>
 
-      {/* ================= SIMULATION CONTROL ================= */}
+      {/* SIMULATION CONTROL */}
       <SimulationControl />
 
-      {/* ================= KPIs ================= */}
+      {/* ================= KPI GRID ================= */}
       <div
         style={{
-          display: "flex",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           gap: 24,
-          flexWrap: "wrap",
-          marginBottom: 40,
+          marginBottom: 48,
         }}
       >
         <KPI title="Total Orders" value={totalOrders} />
@@ -46,25 +56,33 @@ export default function Analytics() {
         />
       </div>
 
-      {/* ================= SALES TREND ================= */}
-      <Section title="📈 Live Sales Trend">
-        <SalesChart salesLog={salesLog} />
-      </Section>
+      {/* ================= SALES + FORECAST ================= */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "2fr 1fr",
+          gap: 32,
+          marginBottom: 48,
+        }}
+      >
+        <Section title="📈 Live Sales Trend">
+          <SalesChart salesLog={salesLog} />
+        </Section>
 
-      {/* ================= DEMAND FORECAST ================= */}
-      <Section title="🔮 Demand & Restock Prediction">
-        <PredictionChart />
-      </Section>
+        <Section title="🔮 Demand Prediction">
+          <PredictionChart />
+        </Section>
+      </div>
 
       {/* ================= LIVE SALES FEED ================= */}
-      <Section title="🕒 Live Sales Feed">
+      <Section title="🕒 Live Sales Activity">
         <div
           style={{
-            maxHeight: 200,
+            maxHeight: 240,
             overflowY: "auto",
             border: "1px solid #E5E7EB",
-            borderRadius: 12,
-            padding: 12,
+            borderRadius: 14,
+            padding: 16,
             background: "#FFFFFF",
           }}
         >
@@ -74,19 +92,25 @@ export default function Analytics() {
             </p>
           ) : (
             salesLog
-              .slice(-10)
+              .slice(-12)
               .reverse()
               .map((log, index) => (
                 <div
                   key={index}
                   style={{
+                    display: "flex",
+                    justifyContent: "space-between",
                     fontSize: 13,
-                    padding: "6px 0",
+                    padding: "8px 0",
                     borderBottom: "1px solid #F1F5F9",
                   }}
                 >
-                  <strong>{log.item}</strong> × {log.qty} sold at{" "}
-                  {new Date(log.time).toLocaleTimeString()}
+                  <span>
+                    🛒 <strong>{log.item}</strong> × {log.qty}
+                  </span>
+                  <span style={{ color: "#6B7280" }}>
+                    {new Date(log.time).toLocaleTimeString()}
+                  </span>
                 </div>
               ))
           )}
@@ -95,17 +119,23 @@ export default function Analytics() {
 
       {/* ================= OPERATIONAL INSIGHTS ================= */}
       <Section title="🚨 Operational Insights">
-        <ul style={{ lineHeight: 1.8, paddingLeft: 18 }}>
+        <ul
+          style={{
+            lineHeight: 1.9,
+            paddingLeft: 18,
+            fontSize: 14,
+          }}
+        >
           <li>
-            <strong>{lowStockItems}</strong> products are approaching low stock
-            levels.
+            <strong>{lowStockItems}</strong> products are nearing low stock
+            thresholds.
           </li>
           <li>
-            <strong>{alerts.length}</strong> alerts triggered due to stock or
-            restocking events.
+            <strong>{alerts.length}</strong> system alerts generated due to
+            stock events.
           </li>
           <li>
-            High-frequency items should be prioritized for proactive restocking.
+            High-demand items should be prioritized for proactive restocking.
           </li>
         </ul>
       </Section>
@@ -118,20 +148,25 @@ export default function Analytics() {
 function KPI({ title, value, danger }) {
   return (
     <motion.div
-      whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 200 }}
+      whileHover={{ y: -6 }}
+      transition={{ type: "spring", stiffness: 180 }}
       style={{
         background: "#FFFFFF",
-        padding: 20,
-        borderRadius: 16,
+        padding: 22,
+        borderRadius: 18,
         border: "1px solid #E5E7EB",
-        minWidth: 200,
+        boxShadow: danger
+          ? "0 0 0 2px rgba(220,38,38,0.15)"
+          : "0 8px 20px rgba(0,0,0,0.06)",
       }}
     >
-      <p style={{ fontSize: 13, color: "#64748B" }}>{title}</p>
+      <p style={{ fontSize: 13, color: "#64748B", marginBottom: 6 }}>
+        {title}
+      </p>
       <h2
         style={{
           margin: 0,
+          fontSize: "1.6rem",
           color: danger ? "#DC2626" : "#111827",
         }}
       >
@@ -143,8 +178,16 @@ function KPI({ title, value, danger }) {
 
 function Section({ title, children }) {
   return (
-    <div style={{ marginBottom: 40 }}>
-      <h3 style={{ marginBottom: 16 }}>{title}</h3>
+    <div style={{ marginBottom: 48 }}>
+      <h3
+        style={{
+          marginBottom: 18,
+          fontSize: "1.2rem",
+          fontWeight: 600,
+        }}
+      >
+        {title}
+      </h3>
       {children}
     </div>
   );
