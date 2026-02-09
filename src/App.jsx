@@ -60,7 +60,7 @@ function Dashboard() {
             letterSpacing: "-0.05em",
           }}
         >
-          <span style={{ color: "#111111" }}>blink</span>
+          <span style={{ color: "#111111" }}>link</span>
           <span style={{ color: "#16A34A", marginLeft: 4 }}>it</span>
         </h1>
 

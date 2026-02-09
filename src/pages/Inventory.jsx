@@ -33,7 +33,7 @@ export default function Inventory() {
     <div style={{ width: "100%" }}>
       <AlertPopup />
 
-      <h2 style={{ marginBottom: 16 }}>🛒 Inventory</h2>
+      <h2 style={{ marginBottom: 16 }}>Inventory</h2>
 
       {/* FLEX CONTAINER */}
       <div

@@ -24,7 +24,7 @@ export default function Sidebar() {
     >
       {/* LOGO */}
       <h1 style={{ fontWeight: 800 }}>
-        <span style={{ color: "#111" }}>blink</span>
+        <span style={{ color: "#111" }}>link</span>
         <span style={{ color: "#F7D046" }}>it</span>
       </h1>
 

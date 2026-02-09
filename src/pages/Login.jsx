@@ -51,7 +51,7 @@ export default function Login() {
             marginBottom: 12,
           }}
         >
-          <span style={{ color: "#111111" }}>blink</span>
+          <span style={{ color: "#111111" }}>link</span>
           <span style={{ color: "#16A34A" }}>it</span>
         </h1>
 
