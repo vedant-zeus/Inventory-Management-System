@@ -1,16 +1,41 @@
-# React + Vite
+# 📦 Blinkit-Inspired Inventory & Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **real-time inventory management and business analytics dashboard** inspired by Blinkit, built using **React, Context API, React Router, and Framer Motion**.  
+This project simulates **inventory flow, live sales tracking, automated restocking alerts, role-based authentication**, and **data-driven analytics** in a single-page application.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Project Motivation
 
-## React Compiler
+Quick-commerce platforms like Blinkit operate on:
+- real-time inventory visibility
+- instant sales tracking
+- proactive stock alerts
+- analytics-driven decision making
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project was built to **simulate such a system on the frontend**, focusing on:
+- clean architecture
+- scalable state management
+- real-time analytics logic
+- professional UI/UX
 
-## Expanding the ESLint configuration
+It is designed as a **portfolio-grade project** suitable for internships, interviews, and note-worthy demonstrations.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧠 Core Features
+
+✔ Inventory simulation  
+✔ Live sales logging  
+✔ Auto-restocking logic  
+✔ Low-stock alerts & popups  
+✔ Cart system  
+✔ Role-based authentication (Admin / User)  
+✔ Protected routes  
+✔ Real-time analytics dashboard  
+✔ Animated UI & transitions  
+
+---
+
+## 🗂 Folder Architecture
+
