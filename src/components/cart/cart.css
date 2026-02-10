@@ -1,0 +1,104 @@
+/* ================= CART SIDEBAR ================= */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100vh;
+
+  /* 🌿 MATCH DASHBOARD BACKGROUND */
+  background: #e6f0a8; /* soft lime green */
+
+  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.12);
+  z-index: 999;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* (no longer needed but kept safe) */
+.cart-sidebar.open {
+  right: 0;
+}
+
+/* ================= HEADER ================= */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px 18px;
+
+  /* 🟡 YELLOW ACCENT HEADER */
+  background: #facc15;
+  color: #111;
+
+  font-weight: 700;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ================= BODY ================= */
+.cart-body {
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* ================= CART ITEM ================= */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+
+  /* ⚪ CARD STYLE LIKE DASHBOARD */
+  background: #ffffff;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.cart-item strong {
+  font-size: 14px;
+  color: #111;
+}
+
+.cart-item p {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* ================= CART ICON ================= */
+.cart-icon {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 10px;
+  border-radius: 999px;
+
+  /* 🟢 GREEN FLOATING BUTTON */
+  background: #16a34a;
+  color: #ffffff;
+
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.35);
+}
+
+/* ================= BADGE ================= */
+.badge {
+  background: #facc15; /* yellow */
+  color: #111;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  padding: 2px 7px;
+  border-radius: 999px;
+}

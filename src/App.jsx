@@ -22,6 +22,10 @@ import AIExplanationPanel from "./components/AIExplanationPanel";
 import SalesChart from "./charts/SalesChart";
 import PredictionChart from "./charts/PredictionChart";
 
+/* CART */
+import CartIcon from "./components/cart/CartIcon";
+import CartSidebar from "./components/cart/CartSidebar";
+
 /* ---------------- SHARED LAYOUT ---------------- */
 function AppLayout({ children }) {
   return (
@@ -31,10 +35,14 @@ function AppLayout({ children }) {
       <CursorGlow />
       <Sidebar />
 
+      {/* CART (GLOBAL, SINGLE INSTANCE) */}
+      <CartIcon />
+      <CartSidebar />
+
       {/* MAIN CONTENT */}
       <div
         style={{
-          marginLeft: 260, // sidebar width
+          marginLeft: 260,
           padding: 40,
           height: "100vh",
           overflowY: "auto",
@@ -46,49 +54,47 @@ function AppLayout({ children }) {
   );
 }
 
-/* ---------------- DASHBOARD ---------------- */
-function Dashboard() {
+/* ---------------- DASHBOARD PAGE ---------------- */
+function DashboardPage() {
   return (
-    <PageTransition>
-      <AppLayout>
-        {/* HEADER */}
-        <h1
-          style={{
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: "2.6rem",
-            fontWeight: 800,
-            letterSpacing: "-0.05em",
-          }}
-        >
-          <span style={{ color: "#111111" }}>link</span>
-          <span style={{ color: "#16A34A", marginLeft: 4 }}>it</span>
-        </h1>
+    <>
+      {/* HEADER */}
+      <h1
+        style={{
+          fontFamily: "'Poppins', sans-serif",
+          fontSize: "2.6rem",
+          fontWeight: 800,
+          letterSpacing: "-0.05em",
+        }}
+      >
+        <span style={{ color: "#111111" }}>link</span>
+        <span style={{ color: "#16A34A", marginLeft: 4 }}>it</span>
+      </h1>
 
-        {/* STAT CARDS */}
-        <div
-          style={{
-            display: "flex",
-            gap: 24,
-            marginTop: 30,
-            flexWrap: "wrap",
-          }}
-        >
-          <StatCard title="Total Products" value="18" accent="#F7D046" />
-          <StatCard title="Low Stock" value="2" accent="#EF4444" />
-          <StatCard title="Orders Today" value="560" accent="#16A34A" />
-          <StatCard title="Feedbacks" value="106" accent="#38BDF8" />
-        </div>
+      {/* STAT CARDS */}
+      <div
+        style={{
+          display: "flex",
+          gap: 24,
+          marginTop: 30,
+          flexWrap: "wrap",
+        }}
+      >
+        <StatCard title="Total Products" value="18" accent="#F7D046" />
+        <StatCard title="Low Stock" value="2" accent="#EF4444" />
+        <StatCard title="Orders Today" value="560" accent="#16A34A" />
+        <StatCard title="Feedbacks" value="106" accent="#38BDF8" />
+      </div>
 
-        {/* CHARTS */}
-        <div style={{ marginTop: 40 }}>
-          <SalesChart />
-          <PredictionChart />
-        </div>
+      {/* CHARTS */}
+      <div style={{ marginTop: 40 }}>
+        <SalesChart />
+        <PredictionChart />
+      </div>
 
-        {/* AI INSIGHTS */}
-        <AIExplanationPanel />
-      </AppLayout>
-    </PageTransition>
+      {/* AI INSIGHTS */}
+      <AIExplanationPanel />
+    </>
   );
 }
 
@@ -102,17 +108,21 @@ export default function App() {
         {/* LOGIN (PUBLIC) */}
         <Route path="/login" element={<Login />} />
 
-        {/* DASHBOARD (ANY LOGGED-IN USER) */}
+        {/* DASHBOARD */}
         <Route
           path="/"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <PageTransition>
+                <AppLayout>
+                  <DashboardPage />
+                </AppLayout>
+              </PageTransition>
             </ProtectedRoute>
           }
         />
 
-        {/* INVENTORY (USER + ADMIN) */}
+        {/* INVENTORY */}
         <Route
           path="/inventory"
           element={

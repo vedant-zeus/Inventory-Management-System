@@ -1,7 +1,8 @@
 import { useInventory } from "../context/InventoryContext";
+import { useCart } from "../context/CartContext";
 import AlertPopup from "../components/AlertPopup";
 
-/* PRODUCT IMAGES (EXTENDED LIST) */
+/* PRODUCT IMAGES */
 const productImages = {
   Rice: "/rice.jpg",
   Milk: "/milk.jpg",
@@ -11,7 +12,7 @@ const productImages = {
   Bread: "/bread.jpg",
   Eggs: "/eggs.jpg",
   Butter: "/butter.jpg",
-  Cheese: "/cheese'.jpg",
+  Cheese: "/cheese.jpg",
 
   Yogurt: "/yogurt.jpg",
   Oil: "/oil.jpg",
@@ -21,13 +22,19 @@ const productImages = {
   Tea: "/tea.jpg",
   Coffee: "/coffee.jpg",
   Noodles: "/noodles.jpg",
-  Chips: "lays.jpg",
-  Chocolate: "chocolate.jpg",
-  IceCream: "icecream.jpg",
+  Chips: "/lays.jpg",
+  Chocolate: "/chocolate.jpg",
+  IceCream: "/icecream.jpg",
 };
 
 export default function Inventory() {
   const { items, buyItem } = useInventory();
+  const { addToCart } = useCart();
+
+  const handleAdd = (item) => {
+    addToCart(item);      // ➕ add to cart
+    buyItem(item.id, 1); // ➖ reduce stock (change quantity if needed)
+  };
 
   return (
     <div style={{ width: "100%" }}>
@@ -82,7 +89,7 @@ export default function Inventory() {
             <strong style={{ fontSize: 14 }}>{item.name}</strong>
             <p style={{ fontSize: 12, color: "#6B7280" }}>500 ml</p>
 
-            {/* PRICE (SIMULATION) */}
+            {/* PRICE */}
             <p style={{ fontWeight: 600, marginTop: 4 }}>
               ₹{Math.floor(Math.random() * 40) + 20}
             </p>
@@ -103,16 +110,17 @@ export default function Inventory() {
 
             {/* ADD BUTTON */}
             <button
-              onClick={() => buyItem(item.id, 5)}
+              onClick={() => handleAdd(item)}
+              disabled={item.stock <= 0}
               style={{
                 marginTop: "auto",
                 padding: "8px 0",
                 borderRadius: 10,
                 border: "1px solid #16A34A",
-                background: "#FFFFFF",
-                color: "#16A34A",
+                background: item.stock <= 0 ? "#E5E7EB" : "#FFFFFF",
+                color: item.stock <= 0 ? "#9CA3AF" : "#16A34A",
                 fontWeight: 600,
-                cursor: "pointer",
+                cursor: item.stock <= 0 ? "not-allowed" : "pointer",
               }}
             >
               ADD
